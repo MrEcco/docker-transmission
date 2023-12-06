@@ -5,9 +5,7 @@ BUILDARGS :=
 BUILDARGS += --build-arg THEME=dark
 
 build:
-	@docker build --pull $(BUILDARGS) -t $(IMAGE_NAME):$(IMAGE_TAG) --platform linux/amd64 -f Dockerfile .
-	# @docker build --pull $(BUILDARGS) -t $(IMAGE_NAME):$(IMAGE_TAG) --platform linux/arm64 -f Dockerfile .
-	# @docker build --pull $(BUILDARGS) -t $(IMAGE_NAME):$(IMAGE_TAG) --platform linux/arm/v7 -f Dockerfile .
+	@docker buildx bake --no-cache --pull --push
 
 rmi:
 	@docker rmi $(IMAGE_NAME):$(IMAGE_TAG)

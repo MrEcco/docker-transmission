@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM alpine:3.18
+FROM alpine:3.18
 
 ARG THEME=dark # or light
 
@@ -13,6 +13,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh && \
         git                     && \
     git clone https://git.eigenlab.org/sbiego/transmission-web-soft-theme && \
     cp -r transmission-web-soft-theme/web/* /usr/share/transmission/public_html/ && \
+    rm -rf transmission-web-soft-theme && \
     apk del temporary           && \
     sed -i '21i\\t\t<link href="./style/transmission/soft-theme.min.css" type="text/css" rel="stylesheet" />\n\t\t<link href="style/transmission/soft-'${THEME}'-theme.min.css" type="text/css" rel="stylesheet" />\n' /usr/share/transmission/public_html/index.html
 
